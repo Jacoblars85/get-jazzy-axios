@@ -57,6 +57,11 @@ app.get('/song', (req, res) => {
 });
 
 
+app.post('/song', (req, res) => {
+    res.send(songListArray);
+});
+
+
 
 app.listen(PORT, () => {
     console.log('listening on port', PORT)
