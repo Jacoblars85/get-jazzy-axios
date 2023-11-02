@@ -1,34 +1,6 @@
 function onReady() {
     console.log('Hello from client.js');
-
-    axios({
-        method: 'GET',
-        url: '/artist'
-    })
-        .then(function (response) {
-            // Code that will run on successful response
-            // from the server.
-            console.log(response);
-            // quotesFromServer will be an Array of quotes
-            let quotesFromServer = response.data;
-            let contentDiv = document.querySelector('#artistTableBody');
-            for (let artist of quotesFromServer) {
-                contentDiv.innerHTML += `
-                <tr>
-                    <td>${artist.name}</td>
-                    <td>${artist.born}</td>
-                    <td>${artist.died}</td>
-                </tr>
-            `;
-            }
-        }).catch(function (error) {
-            // Code that will run on any errors from the server.
-            console.log(error);
-            alert('Something bad happened! Check the console for more details.')
-
-        });
-
-    // TODO Add Axios request for /songs and display on DOM
+     // TODO Add Axios request for /songs and display on DOM
     axios({
         method: 'GET',
         url: '/song'
@@ -50,9 +22,17 @@ function onReady() {
         console.log(error);
         alert('Something bad happened! Check the console for more details.')
     });
-
-
 }
+
+function getArtist() {
+    axios({
+      url: '/artist',
+      method: 'GET'
+    }).then((response) => {
+      let artist = response.data 
+      renderNewArtist(artist)
+    })
+  }
 
 
 function onSubmit(event) {
@@ -77,18 +57,17 @@ function onSubmit(event) {
       url: '/artist',
       data: newArtist
     }).then((response) => {
-        //maybe not right
-      onReady()
+        getArtist()
     })
 }
 
 
-function renderNewArtist(artistListArray) {
+function renderNewArtist(artist) {
     let artistList = document.getElementById('artistTableBody');
   
     artistList.innerHTML = '';
   
-    for (let man of artistListArray) {
+    for (let man of artist) {
         artistList.innerHTML += `
       <tr>
         <th>${man.name}:</th>
@@ -101,3 +80,4 @@ function renderNewArtist(artistListArray) {
   
 
 onReady();
+getArtist();
