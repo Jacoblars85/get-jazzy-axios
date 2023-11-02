@@ -45,6 +45,8 @@ const songListArray = [
     },
 ];
 
+app.use(express.json())
+
 app.use(express.static('server/public'));
 
 app.get('/artist', (req, res) => {
@@ -57,8 +59,10 @@ app.get('/song', (req, res) => {
 });
 
 
-app.post('/song', (req, res) => {
-    res.send(songListArray);
+app.post('/artist', (req, res) => {
+    let newArtist = req.body
+    artistListArray.push(newArtist)
+    res.sendStatus(201)
 });
 
 

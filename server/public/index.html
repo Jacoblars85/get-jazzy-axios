@@ -20,7 +20,9 @@
                 <th>Died</th>
             </tr>
         </thead>
-        <tbody id="artistTableBody"></tbody>
+        <tbody id="artistTableBody">
+            
+        </tbody>
     </table>
 
     <h2>Famous Jazz Songs</h2>
@@ -32,12 +34,14 @@
             </tr>
         </thead>
         <tbody id="songTableBody">
-           <form>
-            <input id="title" type="text" placeholder="title">
-            <input id="artist" type="text" placeholder="artist">
-            <button>submit</button>
-           </form>
+           
         </tbody>
     </table>
+    <form>
+        <input id="artistInput" type="text" placeholder="artist">
+        <input id="bornInput" type="number" placeholder="born">
+        <input id="diedInput" type="number" placeholder="died">
+        <button onclick="onSubmit(event)">submit</button>
+    </form>
 </body>
 </html>

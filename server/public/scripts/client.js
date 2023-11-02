@@ -25,6 +25,7 @@ function onReady() {
             // Code that will run on any errors from the server.
             console.log(error);
             alert('Something bad happened! Check the console for more details.')
+
         });
 
     // TODO Add Axios request for /songs and display on DOM
@@ -52,5 +53,51 @@ function onReady() {
 
 
 }
+
+
+function onSubmit(event) {
+    event.preventDefault()
+
+    let artistInput = document.getElementById('artistInput').value
+    let bornInput = document.getElementById('bornInput').value
+    let diedInput = document.getElementById('diedInput').value
+
+    document.getElementById('artistInput').value = ''
+    document.getElementById('bornInput').value = ''
+    document.getElementById('diedInput').value = ''
+  
+    
+    let newArtist = {
+        name: artistInput,
+        born: bornInput,
+        died: diedInput
+    }
+    axios({
+      method: 'POST',
+      url: '/artist',
+      data: newArtist
+    }).then((response) => {
+        //maybe not right
+      onReady()
+    })
+}
+
+
+function renderNewArtist(artistListArray) {
+    let artistList = document.getElementById('artistTableBody');
+  
+    artistList.innerHTML = '';
+  
+    for (let man of artistListArray) {
+        artistList.innerHTML += `
+      <tr>
+        <th>${man.name}:</th>
+        <th>${man.born}</th>
+        <th>${man.died}</th>
+     </tr>
+      `
+    }
+  }
+  
 
 onReady();
